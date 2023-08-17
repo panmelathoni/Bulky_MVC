@@ -13,10 +13,7 @@ namespace Bulky.DataAccess.Repository
             _db = db;
         }
 
-        void ICategoryRepository.Save()
-        {
-            _db.SaveChanges();
-        }
+   
 
         void ICategoryRepository.Update(Category obj)
         {
