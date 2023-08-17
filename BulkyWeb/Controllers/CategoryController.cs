@@ -1,19 +1,23 @@
-﻿using BulkyWeb.Data;
-using BulkyWeb.Models;
+﻿using Bulky.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
+using Bulky.Models;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Bulky.DataAccess.Repository.IRepository;
 
-namespace BulkyWeb.Controllers
+namespace Bulky.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly AplicationDbContext _db;
-        public CategoryController(AplicationDbContext db)
+        private readonly ICategoryRepository _categoryRepo;
+
+   
+        public CategoryController(ICategoryRepository  db)
         {
-            _db = db;
+            _categoryRepo = db;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -31,13 +35,89 @@ namespace BulkyWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
+                TempData["Success"] = "Category created successfully";
+
                 return RedirectToAction("Index");
             }
             return View(obj);
          
         }
 
+        public IActionResult Edit(int id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category ?  categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+            //Category ? categoryFromDb1 = _db.Categories.FirstOrDefault(u =>  u.Id == id);
+            //Category? categoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+
+          if(categoryFromDb == null)
+            {
+                return NotFound() ;
+            }
+
+            return View(categoryFromDb);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Edit(Category obj)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _categoryRepo.Update(obj);
+                _categoryRepo.Save();
+                TempData["Success"] = "Category updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+      }
+
+
+
+        public IActionResult Delete(int id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int id)
+        {
+            Category? obj = _categoryRepo.Get(u => u.Id == id);
+
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _categoryRepo.Remove(obj);
+            _categoryRepo.Save();
+            TempData["Success"] = "Category deleted successfully";
+
+            return RedirectToAction("Index");
+         }
     }
 }

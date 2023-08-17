@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
     <Compile Remove="NewFolder\**" />
     <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="Data\**" />
     <Content Remove="NewFolder\**" />
     <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="Data\**" />
     <None Remove="NewFolder\**" />
     <None Remove="wwwroot\NewFolder\**" />
   </ItemGroup>
@@ -24,6 +28,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bulky.DataAccess\Bulky.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
