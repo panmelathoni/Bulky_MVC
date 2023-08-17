@@ -4,14 +4,15 @@ using Bulky.Models;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Bulky.DataAccess.Repository.IRepository;
 
-namespace Bulky.Controllers
+namespace BulkyWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWorkcs _unitOfWork;
 
-   
-        public CategoryController(IUnitOfWorkcs  unitOfWork)
+
+        public CategoryController(IUnitOfWorkcs unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -21,7 +22,7 @@ namespace Bulky.Controllers
             return View(objCategoryList);
         }
 
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
         }
@@ -42,23 +43,23 @@ namespace Bulky.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
-         
+
         }
 
         public IActionResult Edit(int id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            Category ?  categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             //Category ? categoryFromDb1 = _db.Categories.FirstOrDefault(u =>  u.Id == id);
             //Category? categoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 
-          if(categoryFromDb == null)
+            if (categoryFromDb == null)
             {
-                return NotFound() ;
+                return NotFound();
             }
 
             return View(categoryFromDb);
@@ -78,7 +79,7 @@ namespace Bulky.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
-      }
+        }
 
 
 
@@ -118,6 +119,6 @@ namespace Bulky.Controllers
             TempData["Success"] = "Category deleted successfully";
 
             return RedirectToAction("Index");
-         }
+        }
     }
 }
