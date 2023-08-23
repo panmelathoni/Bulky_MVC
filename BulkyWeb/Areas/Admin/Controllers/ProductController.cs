@@ -69,9 +69,15 @@ namespace BulkyWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            Product prod = _unitOfWork.Product.Get(u => u.Id == id);
 
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            
+            ProductVM productFromDb = new ProductVM { Product = prod } ;
+
+            productFromDb.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString(),
+            });
 
             if (productFromDb == null)
             {
@@ -84,12 +90,12 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(Product obj)
+        public IActionResult Edit(ProductVM obj)
         {
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Update(obj);
+                _unitOfWork.Product.Update(obj.Product);
                 _unitOfWork.Save();
                 TempData["Success"] = "Product updated successfully";
                 return RedirectToAction("Index");

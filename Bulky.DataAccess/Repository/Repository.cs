@@ -1,5 +1,6 @@
 ﻿using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
+using Bulky.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -47,7 +48,11 @@ namespace Bulky.DataAccess.Repository
         {
             this.dbSet.RemoveRange(entity);
         }
-
-    
+        public void Update(T entity)
+        {
+            _db.Update(entity);
+        }
     }
+
 }
+
