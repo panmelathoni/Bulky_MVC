@@ -9,10 +9,10 @@ namespace BulkyWeb.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly IUnitOfWorkcs _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
 
-        public CategoryController(IUnitOfWorkcs unitOfWork)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

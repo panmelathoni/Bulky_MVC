@@ -1,6 +1,6 @@
 ﻿namespace Bulky.DataAccess.Repository.IRepository
 {
-    public interface IUnitOfWorkcs
+    public interface IUnitOfWork
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }

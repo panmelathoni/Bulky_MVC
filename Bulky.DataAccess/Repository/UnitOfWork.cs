@@ -3,7 +3,7 @@ using Bulky.DataAccess.Repository.IRepository;
 
 namespace Bulky.DataAccess.Repository
 {
-    public class UnitOfWork : IUnitOfWorkcs
+    public class UnitOfWork : IUnitOfWork
     {
 
         private ApplicationDbContext _db;
