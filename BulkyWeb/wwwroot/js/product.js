@@ -41,12 +41,11 @@ function Delete(url) {
             $.ajax({
                 url: url,
                 type: 'DELETE',
-                success: function (date) {
+                success: function (data) {
                     dataTable.ajax.reload();
                     toastr.success(data.message);
                 }
             })
-            )
         }
     })
 }

@@ -52,7 +52,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
                     //criando o caminho do prod
-                    string productPath = Path.Combine(wwwRootPath, @"/images/product/");
+                    string productPath = Path.Combine(wwwRootPath, @"images/product/");
 
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
@@ -154,7 +154,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
         }
 
-        //[HttpDelete]
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
             var productToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
