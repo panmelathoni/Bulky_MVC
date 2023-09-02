@@ -117,7 +117,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-                    string productPath = Path.Combine(wwwRootPath,@"/images/product/");
+                    string productPath = Path.Combine(wwwRootPath,@"images/product/");
 
                     if (!string.IsNullOrEmpty(obj.Product.ImageUrl))
                     {
