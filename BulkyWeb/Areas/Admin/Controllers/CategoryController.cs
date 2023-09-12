@@ -1,12 +1,15 @@
-﻿using Bulky.DataAccess.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Bulky.Models;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Bulky.DataAccess.Repository.IRepository;
+using Bulky.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BulkyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    //Permissao para acessar a categoria, tambem posso colocar essa anotation em cima de cada funçao que eu queira restringir o acesso.
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
